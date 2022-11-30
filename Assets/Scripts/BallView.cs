@@ -5,14 +5,17 @@ using UnityEngine;
 public class BallView : MonoBehaviour
 {
     public BallController _ballController;
+    private AudioSource _audioSource;
 
     void Start()
     {
         _ballController = GetComponent<BallController>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        _audioSource.Play();
         if (collision.gameObject.tag == "Player")
         {
             //reflexão de angulo player
@@ -29,7 +32,6 @@ public class BallView : MonoBehaviour
         {
             //reflexão de angulo com Enemy
             //_ballController.PerfectAngleReflect(collision);
-
             BrickView _brickView = collision.gameObject.GetComponent<BrickView>();
             _brickView.PerformTakeDamage(1f);
         }
